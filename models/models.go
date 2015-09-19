@@ -6,10 +6,10 @@ import (
 	"time"
 )
 
-// const (
-// 	_DB_NAME     = "blog:blog@tcp(localhost:3306)/test?charset=utf8"
-// 	_DRIVER_NAME = "mysql"
-// )
+const (
+	_DB_NAME     = "blog:blog@/blog?charset=utf8&parseTime=True&loc=Local"
+	_DRIVER_NAME = "mysql"
+)
 
 type Users struct {
 	Uid      uint   `gorm:"primary_key;AUTO_INCREMENT"`
@@ -32,17 +32,19 @@ type Tags struct {
 	Type     string `sql:"size:20;not null"`
 }
 
-var Mdb gorm.DB
+var DB gorm.DB
 
 func InitDB() {
 	var err error
-	Mdb, err = gorm.Open("mysql", "blog:blog@/blog?charset=utf8&parseTime=True&loc=Local")
+	DB, err = gorm.Open(_DRIVER_NAME, _DB_NAME)
+
 	if err != nil {
 		panic(err)
 	}
-	Mdb.Set("gorm:table_options", "DEFAULT CHARSET=utf8")
-	Mdb.Set("gorm:table_options", "ENGINE=InnoDB")
-	Mdb.AutoMigrate(&Users{}, &Posts{}, &Tags{})
+	DB.Set("gorm:table_options", "DEFAULT CHARSET=utf8")
+	DB.Set("gorm:table_options", "ENGINE=InnoDB")
+	DB.AutoMigrate(&Users{}, &Posts{}, &Tags{})
+	DB.LogMode(true)
 }
 
 // type Result struct {
