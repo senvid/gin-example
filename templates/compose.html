@@ -70,14 +70,16 @@
     </nav>
     <div id="body-wrap" class="container">
     <div id="main-wrap" class="col-md-10">
-        <form action="{{ request.path }}" method="post" id="compose-form" class="form-horizontal">
+        <form action="/compose" method="post" id="compose-form" class="form-horizontal">
             <div class="form-group">
                 <label for="compose-title">Title</label>
-                <input name="title" type="text" id="compose-title" class="form-control" value="{{ .article.title if .article else "" }}" autofocus required/>
+                <!-- " .article.title if .article else "" "  -->
+                <input name="title" type="text" id="compose-title" class="form-control" value="123" autofocus required/>
             </div>
             <div class="form-group">
              <label class="sr-only" for="compose-textarea">Content</label>
-                <textarea name="content" id="compose-textarea" class="form-control" rows="6" cols="50" required >{{ .article.content if .article else "" }}</textarea>
+                <textarea name="content" id="compose-textarea" class="form-control" rows="6" cols="50" required >article</textarea>
+                 <!-- .article.content if .article else ""  -->
             </div>
            
 <!--             <div id="compose-tag" class="form-group">
@@ -92,7 +94,7 @@
                     <option selected="selected">标签</option>
                     {% if tags %}
                     {% for tag in tags %}
-                    <option>{{ tag.tag_type }}</option>
+                    <option>tag.tag_type }}</option>
                     {% end %}
                     {% end %}
                 </select> -->
@@ -100,8 +102,9 @@
             </div>
             <i class="icon-tag icon-large" style="margin-left: 15px"></i>
             <div id="compose-button">
-                <button type="submit" class="btn btn-success submit">{{ ("Save changes") if article else ("Publish post") }}</button>
-                <a href="{{ "/article/" + article.slug if article else "/" }}">
+                <button type="submit" class="btn btn-success submit"> ("Save changes") if article else ("Publish post") </button>
+                <a href="/article/">
+                 <!-- + article.slug if article else "/" -->
                     <i class="icon-ban-circle"></i> Cancel
                 </a>
             </div>
@@ -139,7 +142,7 @@ $(document).ready(function(){
 });
    
 </script>
-<script type="text/javascript" src="{{ static_url("ckeditor/ckeditor.js") }}"></script>
+<script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
     // localSave(".content",".local_log");
     // localSave(".title");

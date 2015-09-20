@@ -24,7 +24,7 @@ type Posts struct {
 	Title     string    `sql:"size:100;not null"`
 	Content   string    `sql:"size:5000;not null"`
 	Published time.Time `sql:"not null;index"`
-	Update    time.Time `sql:"default current_timestamp on update current_timestamp"`
+	Updated   time.Time `sql:"NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
 }
 type Tags struct {
 	Id       uint   `sql:"primary key:AUTO_INCREMENT"`

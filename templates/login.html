@@ -1,123 +1,171 @@
-{% extends "base.html" %} {% block head %}
-<style type="text/css">
-body {
-    /* padding-top: 40px;*/
-    padding-bottom: 40px;
-    background-color: #eee;
-}
+<!DOCTYPE html>
+<html lang="zh-CN">
 
-.form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html">
+    <title>blog</title>
+    <link rel="alternate" href="/feed" type="application/atom+xml" title="myblog">
+    <!-- bs -->
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-3.3.5/css/font-awesome.min.css">
+    <!--[if lt IE 9]>
+        <h3>Your browser is too old.. Touch me to upgrade it.</h3>
+        <a href="http://www.google.cn/chrome/"><h2>chrome</h2></a>
+        <a href="www.mozilla.org"><h2>firefox</h2></a>
+    <![endif]-->
+    <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
+    <style type="text/css">
+    body {
+        /* padding-top: 40px;*/
+        padding-bottom: 40px;
+        background-color: #eee;
+    }
+    
+    .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+    
+    .form-signin .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+    }
+    
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+    
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    </style>
+</head>
 
-
-/*.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}*/
-
-
-/*.form-signin .checkbox {
-  font-weight: normal;
-}*/
-
-.form-signin .form-control {
-    position: relative;
-    height: auto;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 10px;
-    font-size: 16px;
-}
-
-.form-signin .form-control:focus {
-    z-index: 2;
-}
-
-.form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-</style>
-{% end %} 
-{% block body %}
-
-<!-- <div id="login_outer">
-    <form id="login_form" action="" method="post" autocomplete="on">
-        <input id="email" type="email" name="email" required="required" pattern="[\w]+[@][A-z0-9]+\.[A-z]+" placeholder="Email" />
-        <br />
-        <input id="password" type="password" name="password" required="required" placeholder="Password" />
-        <br />
-        <input id="submit" type="submit" name="login" value="sign in" style=" cursor: pointer;" /> -->
-<!--module xsrf_form_html() 已使用ajax替代-->
-<!--  -->
-<!--     </form>
-</div>
- -->
-<div class="container" id="login_outer">
-    <form class="form-signin" id="login_form" action="" method="post" autocomplete="on">
-        <label for="email" class="sr-only">Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus pattern="[\w]+[@][A-z0-9]+\.[A-z]+">  
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
+<body>
+    <nav id="nav-head" class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">My blog</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav nav-pills pull-right">
+                    <li>
+                        <a style="" href="/"><i class="icon-home"></i> home</a>
+                    </li>
+                    <li>
+                        <a href="/archive"><i class=" icon-book"></i> Archive</a>
+                    </li>
+                    <li>
+                        <a href="/about"><i class="icon-info-sign"></i> about</a>
+                    </li>
+                    <li>
+                        <a href="/feed"><i class="icon-rss"></i> feed</a>
+                    </li>
+                    <li>
+                        <a href="/compose"><i class="icon-edit"></i> new post</a>
+                    </li>
+                    <li>
+                        <a href="/logout"><i class="icon-user"></i> sign out</a>
+                    </li>
+                    <li>
+                        <a href="/login"><i class="icon-signin"></i>  Login</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <button id="submit" class="btn  btn-success btn-block" type="submit">
-        <i class="icon-ok-sign icon-large"></i>  Sign in</button>
-    </form>
-</div>
-{% end %}
+    </nav>
+    <div id="body-wrap" class="container">
+        <div class="container" id="login_outer">
+            <form class="form-signin" id="login_form" method="post" autocomplete="on">
+                <label for="email" class="sr-only">Email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus pattern="[\w]+[@][A-z0-9]+\.[A-z]+">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button id="submit" class="btn  btn-success btn-block" type="submit">
+                    <i class="icon-ok-sign icon-large"></i> Sign in</button>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <small>Powered by <a href="http://www.tornadoweb.org/">tornado</a> | senvid.</small>
+            </p>
+        </div>
+    </footer>
+    <script type="text/javascript" src="/static/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/web.js"></script>
+    <script type="text/javascript" src="/static/js/sha1.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        mouse_over_out();
+        $("#login_form").submit(function() {
+            var mypassword = $("#password").val();
+            var sha1obj = new jsSHA(mypassword, "TEXT");
+            var sha1password = sha1obj.getHash("SHA-1", "HEX");
 
-{% block bottom %}
-<script type="text/javascript" src="{{ static_url("js/sha1.js") }}"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $("#login_form").submit(function() {
-        var mypassword = $("#password").val();
-        var sha1obj = new jsSHA(mypassword, "TEXT");
-        var sha1password = sha1obj.getHash("SHA-1", "HEX");
-        console.log(sha1password);
-        function getCookie(name) {
-            var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
-            return r ? r[1] : undefined;
-        }
-        var args = {
-            "_xsrf": getCookie("_xsrf"),
-            "email": $("#email").val(),
-            "password": sha1password
-        };
-        $("#submit").attr("disabled", true).css("background", "#C8C6C6");
-        $("#login_form #alert").hide(1000);
-
-        $.post(
-            "/login",
-            $.param(args),
-            function(msg) {
-                if ("ok" == msg) {
-                    window.location.href = "/";
-                } else {
-                    $("#login_form").append('<div id="alert" class="alert alert-danger"' +
-                        'role="alert"><strong>Oh! </strong>' +
-                        'Incorrect email or password..</div>').css("color", "#C8C6C6");
-                    $("#submit").attr("disabled", false).css("background", "#337AB7");
-                }
+            function getCookie(name) {
+                var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+                return r ? r[1] : undefined;
             }
-        );
-        return false;
-    });
-})
-</script>
-{% end %}
+            var args = {
+                "_xsrf": getCookie("_xsrf"),
+                "email": $("#email").val(),
+                "password": sha1password
+            };
+            console.log(args);
+            $("#submit").attr("disabled", true).css("background", "#C8C6C6");
+            $("#login_form #alert").hide(1000);
+
+            $.post(
+                "/login",
+                $.param(args),
+                function(msg) {
+                    console.log(msg);
+                    if ("ok" == msg) {
+                        window.location.href = "/";
+                    } else {
+                        $("#login_form").append('<div id="alert" class="alert alert-danger"' +
+                            'role="alert"><strong>Oh! </strong>' +
+                            'Incorrect email or password..</div>').css("color", "#C8C6C6");
+                        $("#submit").attr("disabled", false).css("background", "#337AB7");
+                    }
+                }
+            );
+            return false;
+        });
+    })
+    </script>
+</body>
+
+</html>
