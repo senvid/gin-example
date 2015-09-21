@@ -12,14 +12,14 @@ const (
 )
 
 type Users struct {
-	Uid      uint   `gorm:"primary_key;AUTO_INCREMENT"`
+	Uid      uint64 `gorm:"primary_key;AUTO_INCREMENT"`
 	Email    string `sql:"size:50;not null;unique"`
 	Password string `sql:"size:50;not null"`
 	Nickname string `sql:"size:30;not null;unique"`
 }
 
 type Posts struct {
-	Id        uint      `sql:"primary key:AUTO_INCREMENT"`
+	Id        uint64    `sql:"primary key:AUTO_INCREMENT"`
 	Slug      string    `sql:"size:50;not null;unique"`
 	Title     string    `sql:"size:100;not null"`
 	Content   string    `sql:"size:5000;not null"`
@@ -27,8 +27,8 @@ type Posts struct {
 	Updated   time.Time `sql:"NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"`
 }
 type Tags struct {
-	Id       uint   `sql:"primary key:AUTO_INCREMENT"`
-	Parentid uint   `sql:"default null"`
+	Id       uint8  `sql:"primary key:AUTO_INCREMENT"`
+	Parentid uint8  `sql:"default null"`
 	Type     string `sql:"size:20;not null"`
 }
 

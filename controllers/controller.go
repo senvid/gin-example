@@ -8,7 +8,8 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"time"
+	"strconv"
+	// "time"
 )
 
 /*
@@ -66,7 +67,7 @@ func Home(c *gin.Context) {
 	var posts []models.Posts
 	models.DB.Raw("SELECT * FROM posts ORDER BY id DESC limit ?", sp).Scan(&posts)
 	if len(posts) == 0 {
-		c.HTML(404, "404.html", "")
+		c.HTML(200, "compose.html", "")
 		return
 	}
 
@@ -93,11 +94,12 @@ func ComposeGet(c *gin.Context) {
 }
 func LoginGet(c *gin.Context) {
 	token := GenerateToken()
-	expires := time.Now().AddDate(0, 0, 1)
+	// Expires := time.Now().Add(24 * time.Hour)
+	// MaxAge := 86400
 	var userCookie http.Cookie
 	userCookie.Name = "_xsrf"
 	userCookie.Value = token
-	userCookie.Expires = expires
+	// userCookie.MaxAge = MaxAge
 	http.SetCookie(c.Writer, &userCookie)
 	c.HTML(200, "login.html", "")
 }
@@ -108,11 +110,13 @@ func LoginPost(c *gin.Context) {
 		var user []models.Users
 		models.DB.Raw("SELECT * FROM users WHERE email=? AND password=?", email, password).Scan(&user)
 		if len(user) > 0 {
-			expires := time.Now().AddDate(0, 0, 1)
+			value := base64.StdEncoding.EncodeToString([]byte(strconv.FormatUint(user[0].Uid, 10)))
+			// MaxAge := time.Now().Add(24 * time.Hour).Second()
+			MaxAge := 86400
 			var userCookie http.Cookie
 			userCookie.Name = "user"
-			userCookie.Value = "1"
-			userCookie.Expires = expires
+			userCookie.Value = value
+			userCookie.MaxAge = MaxAge
 			http.SetCookie(c.Writer, &userCookie)
 			c.String(200, "ok")
 		} else {
@@ -121,6 +125,27 @@ func LoginPost(c *gin.Context) {
 	} else {
 		c.String(200, "false")
 	}
+}
+
+func LogoutGet(c *gin.Context) {
+	var userCookie http.Cookie
+	userCookie.Name = "user"
+	userCookie.MaxAge = -1
+	http.SetCookie(c.Writer, &userCookie)
+	c.Redirect(http.StatusMovedPermanently, "/")
+
+}
+
+func AboutGet(c *gin.Context) {
+	c.HTML(http.StatusOK, "about.html", "")
+}
+
+func ArchiveGet(c *gin.Context) {
+	var posts []models.Posts
+	models.DB.Raw("SELECT * FROM posts").Scan(&posts)
+	c.HTML(http.StatusOK, "archive.html", gin.H{
+		"posts": posts,
+	})
 }
 
 // func ComposePost(c *gin.Context) {

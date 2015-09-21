@@ -19,8 +19,8 @@
     <![endif]-->
     <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
 
-    {% block head %} 
-    {% end %}
+     block head  
+     end 
 </head>
 
 <body>
@@ -41,7 +41,7 @@
                         <a style="" href="/"><i class="icon-home"></i>  home</a>
                     </li>
                     <li>
-                        <a href="/archive"><i class=" icon-book"></i>  {{ _("Archive") }}</a>
+                        <a href="/archive"><i class=" icon-book"></i>   _("Archive") </a>
                     </li>
                     <li>
                         <a href="/about"><i class="icon-info-sign"></i>  about</a>
@@ -49,25 +49,25 @@
                     <li>     
                         <a href="/feed"><i class="icon-rss"></i>  feed</a>
                     </li>
-                    {% if current_user %}
+                     if current_user 
                     <li>
-                        <a href="/compose"><i class="icon-edit"></i>  {{ _("new post") }}</a>
+                        <a href="/compose"><i class="icon-edit"></i>   _("new post") </a>
                     </li>
                     <li>
-                        <a href="/logout"><i class="icon-user"></i>  {{ _("sign out") }}</a>
+                        <a href="/logout"><i class="icon-user"></i>   _("sign out") </a>
                     </li>
-                    {% else %}
+                     else 
                     <li>
-                        {% raw _('<a href="%(url)s"><i class="icon-signin"></i>  Login</a>') % {"url" : "/login"} %}
+                         <a href="%(url)s"><i class="icon-signin"></i>  Login</a>
                     </li>
-                    {% end %}
+                     end 
                 </ul>
             </div>
         </div>
     </nav>
     <div id="body-wrap" class="container">
-        {% block body %}
-        {% end %}
+         block body 
+         end 
     </div>
     <footer class="footer">
         <div class="container">
@@ -76,32 +76,17 @@
             </p>
         </div>
     </footer>
-
-<!-- <div id="gotop">
-    <div id="arrow"></div>
-    <div class="word">TOP</div>
-</div> -->
 <script type="text/javascript" src="/static/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/static/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/static/js/web.js"></script>
-<!--  -->
-<!-- <script type="text/javascript" src="/static/js/jquery.scrollTo-1.1.13.min.js">
-</script> -->
-
 <script type="text/javascript">
 $(document).ready(function(){
-    // setFooter();
-    // $(window).resize(setFooter);
-    // asideGet();
-    //
     mouse_over_out();
-    //
-    //show_hide_scroll("#header-wrap","#gotop");
 });
    
 </script>
-{% block bottom %} 
-{% end %}
+ block bottom  
+ end 
 </body>
 
 </html>

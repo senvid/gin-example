@@ -1,3 +1,4 @@
+{{ define "aside" }}
 <form id="search" class="form-inline" role="search" action="/search" method="get">
     <div class="form-group">
     <label for="Search" class="sr-only">Search</label>
@@ -14,13 +15,13 @@
         </h3>
     </div>
     <div class="panel-body">
-        {% for item in aside_title %}
+        for item in aside_title 
         <li>
-            <a href="/topic/{{ item.slug }}">
-                <p>{{ item.title }}</p>
+            <a href="/topic/ item.slug ">
+                <p> item.title </p>
             </a>
         </li>
-        {% end %}
+         end 
     </div>
 </div>
 <div class="panel panel-danger">
@@ -30,8 +31,9 @@
     </h3>
     </div>
     <div id="tag_a" class="panel-body list-group">
-        {% for tag in getAllTags %}
-        <a href="/tag/{{ tag.tag_type }}">{{ tag.tag_type }} [{{ tag["COUNT(id)"] }}]</a>
-        {% end %}
+         for tag in getAllTags 
+        <a href="/tag/ tag.tag_type "> tag.tag_type  [ tag["COUNT(id)"] ]</a>
+         end 
     </div>
 </div>
+{{ end }}
