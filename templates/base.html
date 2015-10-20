@@ -19,8 +19,7 @@
     <![endif]-->
     <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
 
-     block head  
-     end 
+     {{template "head" .}}  
 </head>
 
 <body>
@@ -66,8 +65,8 @@
         </div>
     </nav>
     <div id="body-wrap" class="container">
-         block body 
-         end 
+
+         {{template "body" .}}
     </div>
     <footer class="footer">
         <div class="container">
@@ -86,7 +85,8 @@ $(document).ready(function(){
    
 </script>
  block bottom  
- end 
+ end
+ {{template "bottom" .}} 
 </body>
 
 </html>
