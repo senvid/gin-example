@@ -1,0 +1,48 @@
+{{define "aside"}}
+
+    <div class="col-md-3 col-md-offset-1 main-wrap">
+        <div id="aside-wrap">
+            
+        <form id="search" class="form-inline" role="search" action="/search" method="get">
+            <div class="form-group">
+            <label for="Search" class="sr-only">Search</label>
+                <input type="text" id="Search" name="search" class="form-control" placeholder="Search" required>
+            </div>
+            <button type="submit" class="btn btn-default">
+                <i class="icon-search"></i>
+            </button>
+        </form>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span><i class="icon-list"></i>  最近更新</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+             
+                {{range $title :=.titles}}
+                <li>
+                    <a href="/topic/item.slug }}">
+                        <p>{{ $title }}</p>
+                    </a>
+                </li>
+                {{end}}
+            </div>
+        </div>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+            <h3 class="panel-title">
+                <span><i class=" icon-tags"></i>  标签</span>
+            </h3>
+            </div>
+            <div id="tag_a" class="panel-body list-group">
+                {{range $tag := .tags}}
+                <a href="/tag/{{$tag.Tagname}}"> {{$tag.Tagname}}  [ {{$tag.Count}} ]</a>
+                {{end}}
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+{{end}}

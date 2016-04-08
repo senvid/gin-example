@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {{template "head"}}
+
+    <style type="text/css">
+        #nav-head{
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+    {{template "nav"}}
+    <div id="body-wrap" class="container">
+
+        <div id="main-wrap" class="col-md-10">
+            <form action=" request.path " method="post" id="compose-form" class="form-horizontal">
+                <div class="form-group">
+                    <label for="compose-title">Title</label>
+                    <input name="title" type="text" id="compose-title" class="form-control" value="article.title if article else" autofocus required />
+                </div>
+                <div class="form-group">
+                 <label class="sr-only" for="compose-textarea">Content</label>
+                    <textarea name="content" id="compose-textarea" class="form-control" rows="6" cols="50" required >
+                        article.content if article else ""
+                    </textarea>
+                </div>
+               
+                <div id="compose-tag" class="form-group">
+                 <label class="sr-only" for="compose-tags">Tag</label>
+                    <input name="article_tag" type="text" id="compose-tags" class="form-control" placeholder="add tag" value="article.tag_type if article and article.article_tag_id else">
+                </div>
+                <div id="compose-select" class="form-group">
+                
+                    <label class="sr-only" for="compose-selects">tag</label>
+                    <select  id="compose-selects" class="form-control">
+
+                        <option selected="selected">标签</option>
+                        {% if tags %}
+                        {% for tag in tags %}
+                        <option> tag.tag_type }}</option>
+                        {% end %}
+                        {% end %}
+                    </select>
+
+                </div>
+                <i class="icon-tag icon-large" style="margin-left: 15px"></i>
+                <div id="compose-button">
+
+                    <button type="submit" class="btn btn-success submit">
+                         _("Save changes") if article else _("Publish post") }}
+                     </button>
+                    a href=       "/topic/" + article.slug if article else ".." >
+                        <i class="icon-ban-circle"></i>  _("Cancel") }}
+                    /a>
+
+                    {% if article %}
+                      <input type="hidden" name="id" value=" article.id }}"/>
+                    {% else %}
+                        <small class="local_log"></small>
+                    {% end %}
+                    {% module xsrf_form_html() %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    {{template "footer"}} 
+    {{template "footerdown"}}
+
+    <script src="//cdn.bootcss.com/ckeditor/4.5.4/ckeditor.js"></script>
+    <script type="text/javascript">
+        // localSave(".content",".local_log");
+        // localSave(".title");
+        window.onload=function() {
+            // ckeditor
+            CKEDITOR.plugins.addExternal('widget', '/static/ckeditor/plugins/widget/', 'plugin.js');
+            CKEDITOR.plugins.addExternal('lineutils', '/static/ckeditor/plugins/lineutils/', 'plugin.js');
+            CKEDITOR.plugins.addExternal('codesnippet', '/static/ckeditor/plugins/codesnippet/', 'plugin.js');
+            CKEDITOR.replace('content', {
+                extraPlugins: 'widget',
+                extraPlugins: 'lineutils',
+                extraPlugins: 'codesnippet',
+                customConfig: '/static/ckeditor/config.js'
+            });
+        }
+    </script>
+</body>>
+</html>

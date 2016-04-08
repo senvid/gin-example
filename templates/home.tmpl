@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {{template "head"}}
+    {{template "highlight"}}
+</head>
+
+<body>
+    {{template "nav" .}}
+
+    <div id="body-wrap" class="container">
+        <!--   {% block body %}
+        {% end %} -->
+
+        {{template "article" .}}
+        {{template "aside" .}}
+
+    </div>
+
+
+    {{template "footer"}} 
+    {{template "footerdown"}}
+    {{template "paging" .}}
+
+</body>
+
+</html>
