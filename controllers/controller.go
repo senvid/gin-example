@@ -67,7 +67,7 @@ func Home(c *gin.Context) {
 	var posts []models.Posts
 	models.DB.Raw("SELECT * FROM posts ORDER BY id DESC limit ?", sp).Scan(&posts)
 	if len(posts) == 0 {
-		c.HTML(200, "compose.html", "")
+		c.HTML(200, "compose.html", gin.H{})
 		return
 	}
 
@@ -137,7 +137,7 @@ func LogoutGet(c *gin.Context) {
 }
 
 func AboutGet(c *gin.Context) {
-	c.HTML(http.StatusOK, "about.html", "")
+	c.HTML(http.StatusOK, "about.html", gin.H{})
 }
 
 func ArchiveGet(c *gin.Context) {
