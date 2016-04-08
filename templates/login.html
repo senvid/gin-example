@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 
 <head>
+<<<<<<< HEAD
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
@@ -99,6 +100,57 @@
         </div>
     </nav>
     <div id="body-wrap" class="container">
+=======
+    {{template "head"}}
+
+    <style type="text/css">
+        body {
+            /* padding-top: 40px;*/
+            padding-bottom: 40px;
+            background-color: #eee;
+        }
+        
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        
+        .form-signin .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+        }
+        
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    {{template "nav"}}
+
+    <div id="body-wrap" class="container">
+
+>>>>>>> remotes/origin/dev2
         <div class="container" id="login_outer">
             <form class="form-signin" id="login_form" method="post" autocomplete="on">
                 <label for="email" class="sr-only">Email</label>
@@ -114,6 +166,7 @@
                     <i class="icon-ok-sign icon-large"></i> Sign in</button>
             </form>
         </div>
+<<<<<<< HEAD
     </div>
     <footer class="footer">
         <div class="container">
@@ -165,6 +218,57 @@
             return false;
         });
     })
+=======
+
+    </div>
+
+    {{template "footer"}} 
+    {{template "footerdown"}}
+
+    <script type="text/javascript" src="/static/js/sha1.js"></script>
+    <script type="text/javascript">
+    // $(document).ready(function() {
+    //     $("#login_form").submit(function() {
+    //         var mypassword = $("#password").val();
+    //         var sha1obj = new jsSHA(mypassword, "TEXT");
+    //         var sha1password = sha1obj.getHash("SHA-1", "HEX");
+
+    //         function getCookie(name) {
+    //             var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+    //             return r ? r[1] : undefined;
+    //         }
+    //         <!--var args = {-->
+    //             <!--"_xsrf": getCookie("_xsrf"),-->
+    //             <!--"email": $("#email").val(),-->
+    //             <!--"password": sha1password-->
+    //         <!--};-->
+    //          var args = {
+    //             "email": $("#email").val(),
+    //             "password": mypassword
+    //         };
+    //         console.log(args);
+    //         $("#submit").attr("disabled", true).css("background", "#C8C6C6");
+    //         $("#login_form #alert").hide(1000);
+
+    //         $.post(
+    //             "/login",
+    //             $.param(args),
+    //             function(msg) {
+    //                 console.log(msg);
+    //                 if ("ok" == msg) {
+    //                     window.location.href = "/";
+    //                 } else {
+    //                     $("#login_form").append('<div id="alert" class="alert alert-danger"' +
+    //                         'role="alert"><strong>Oh! </strong>' +
+    //                         'Incorrect email or password..</div>').css("color", "#C8C6C6");
+    //                     $("#submit").attr("disabled", false).css("background", "#337AB7");
+    //                 }
+    //             }
+    //         );
+    //         return false;
+    //     });
+    // })
+>>>>>>> remotes/origin/dev2
     </script>
 </body>
 

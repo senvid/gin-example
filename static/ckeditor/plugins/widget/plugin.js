@@ -1,5 +1,9 @@
 ﻿/**
+<<<<<<< HEAD
  * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+=======
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+>>>>>>> remotes/origin/dev2
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -14,7 +18,11 @@
 
 	CKEDITOR.plugins.add( 'widget', {
 		// jscs:disable maximumLineLength
+<<<<<<< HEAD
 		lang: 'af,ar,bg,ca,cs,cy,da,de,el,en,en-gb,eo,es,fa,fi,fr,gl,he,hr,hu,it,ja,km,ko,ku,lv,nb,nl,no,pl,pt,pt-br,ru,sk,sl,sq,sv,tr,tt,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
+=======
+		lang: 'en,zh-cn', // %REMOVE_LINE_CORE%
+>>>>>>> remotes/origin/dev2
 		// jscs:enable maximumLineLength
 		requires: 'lineutils,clipboard',
 		onLoad: function() {
@@ -2372,10 +2380,24 @@
 		editor.on( 'drop', function( evt ) {
 			var dataTransfer = evt.data.dataTransfer,
 				id = dataTransfer.getData( 'cke/widget-id' ),
+<<<<<<< HEAD
 				dragRange = editor.createRange(),
 				sourceWidget;
 
 			if ( id === '' || dataTransfer.getTransferType( editor ) != CKEDITOR.DATA_TRANSFER_INTERNAL ) {
+=======
+				transferType = dataTransfer.getTransferType( editor ),
+				dragRange = editor.createRange(),
+				sourceWidget;
+
+			// Disable cross-editor drag & drop for widgets - #13599.
+			if ( id !== '' && transferType === CKEDITOR.DATA_TRANSFER_CROSS_EDITORS ) {
+				evt.cancel();
+				return;
+			}
+
+			if ( id === '' || transferType != CKEDITOR.DATA_TRANSFER_INTERNAL ) {
+>>>>>>> remotes/origin/dev2
 				return;
 			}
 
@@ -2489,6 +2511,15 @@
 					// Block widgets are handled by Lineutils.
 					if ( widget.inline && target.type == CKEDITOR.NODE_ELEMENT && target.hasAttribute( 'data-cke-widget-drag-handler' ) ) {
 						mouseDownOnDragHandler = 1;
+<<<<<<< HEAD
+=======
+
+						// When drag handler is pressed we have to clear current selection if it wasn't already on this widget.
+						// Otherwise, the selection may be in a fillingChar, which prevents dragging a widget. (#13284, see comment 8 and 9.)
+						if ( widgetsRepo.focused != widget )
+							editor.getSelection().removeAllRanges();
+
+>>>>>>> remotes/origin/dev2
 						return;
 					}
 

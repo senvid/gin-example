@@ -154,7 +154,12 @@ function paging(begin, end) {
             var pageArea = '<li class="active"><a href="#">' + i + '</a></li>';
         } else {
             // var pageArea = '<a class="rebulid_a" href="/page?page=' + i + '">' + i + '</a>';
+<<<<<<< HEAD
             var pageArea = '<li><a class="ready" href="/page?page=' + i + '">' + i + '</a></li>';
+=======
+            var pageArea = '<li><a class="ready" href="/page/' + i + '">' + i + '</a></li>';
+            // var pageArea = '<li><a class="ready" href="/page?page=' + i + '">' + i + '</a></li>';
+>>>>>>> remotes/origin/dev2
         };
 
         $("#paging").append(pageArea);

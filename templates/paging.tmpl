@@ -1,0 +1,11 @@
+{{define "paging"}}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            hljs.initHighlightingOnLoad();
+            // var onPage = geturlargs();
+            var onPage = parseInt({{ .onpage }});
+            var sumPage = parseInt({{ .sumpage }});
+            paging(onPage,sumPage);
+        });
+    </script>
+{{end}}

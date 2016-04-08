@@ -214,3 +214,9 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+<<<<<<< HEAD
+=======
+
+###### idea #####
+.idea/
+>>>>>>> remotes/origin/dev2
