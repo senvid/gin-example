@@ -1,16 +1,18 @@
 package controllers
- import (
- 	. "ginsite/models"
- 	"github.com/gin-gonic/gin"
- 	"net/http"
-	 "strconv"
-	 //"ginsite/config"
- )
+
+import (
+	. "ginsite/models"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"strconv"
+	//"ginsite/config"
+)
+
 //var sp int = config.PostsNum
-func PageHandler(c *gin.Context)  {
-	num := c.Query("num")
+func PageHandler(c *gin.Context) {
+	num := c.Param("num")
 	onpage, err := strconv.Atoi(num)
-	if err!=nil {
+	if err != nil {
 		c.Redirect(http.StatusBadRequest, "/")
 		return
 	}
@@ -19,17 +21,16 @@ func PageHandler(c *gin.Context)  {
 	var countrows int
 	DB.Model(&Post{}).Count(&countrows)
 	var sumpage int
-	if countrows % sp ==0 {
+	if countrows%sp == 0 {
 		sumpage = countrows / sp
-	}else{
-		sumpage = countrows / sp + 1
+	} else {
+		sumpage = countrows/sp + 1
 	}
-	c.HTML(http.StatusOK,"home.tmpl",gin.H{
-		"home": "welcome home",
-		 "posts": posts,
-		"sumpage":sumpage,
-		"onpage":onpage,
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+		"home":    "welcome home",
+		"posts":   posts,
+		"sumpage": sumpage,
+		"onpage":  onpage,
 	})
 
 }
-

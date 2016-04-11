@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    {{template "head"}}
+    {{template "highlight"}}
 </head>
-<body>
-{{range .posts }}
-{{.}}
-<br />
-{{end}}
 
+<body>
+    {{template "nav" .}}
+    <div id="body-wrap" class="container">
+        {{template "article" .}}
+        {{template "aside" .}}
+
+    </div>
+
+    {{template "footer"}} 
+    {{template "footerdown"}}
+    {{template "paging" .}}
 </body>
 </html>

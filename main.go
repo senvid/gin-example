@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	// "github.com/gin-gonic/gin/binding"
+	"ginsite/controllers"
 	"ginsite/middleware"
-	 "ginsite/controllers"
 	"ginsite/models"
 	// "log"
 	"runtime"
@@ -26,18 +26,16 @@ func main() {
 	authorized := r.Group("/")
 	authorized.Use(middleware.AuthRequired())
 	{
-		authorized.POST("/posts/*slug", controllers.PostsPostHandler)
-		authorized.DELETE("/posts/:slug", controllers.PostDeleteHandler)
+		authorized.POST("/posts/*slug", controllers.NewPostAndEditHandler)
+		authorized.DELETE("/posts/:slug", controllers.DeleteHandler)
 	}
+	r.GET("/posts", controllers.GetAllHandler)
+	r.GET("/posts/:slug", controllers.GetOneHandler)
 
 	r.GET("/", controllers.HomeHandler)
 	r.GET("/compose", controllers.ComposeHandler)
-	r.GET("/aside",controllers.AsideHandler)
+	r.GET("/aside", controllers.AsideHandler)
 
-
-	r.GET("/posts", controllers.PostsGetHandler)
-
-	r.GET("/posts/:slug", controllers.PostsGetOneHandler)
 	r.GET("/page/:num", controllers.PageHandler)
 
 	r.GET("/login", controllers.LoginHandler)
@@ -51,8 +49,6 @@ func main() {
 	// r.PUT("/posts/:id", ...)
 	// r.DELETE("/posts/:id", ...)
 	//r.GET("*",models.PageNotFoundHandler)
-
-
 
 	// GET /zoos：列出所有动物园
 	// POST /zoos：新建一个动物园

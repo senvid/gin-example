@@ -1,4 +1,4 @@
-package Component
+package component
 
 import (
 	. "ginsite/models"
@@ -12,23 +12,29 @@ import (
 //	|          5 | go     |
 //	+------------+--------+
 
-func Gettitle()[]string{
-	//select title from posts order by pid desc limit 5
-	var title []string
-	DB.Table("posts").Order("pid desc").Limit(5).Pluck("title",&title)
-    return title
+type ts []struct {
+	Title string
+	Slug  string
 }
 
-func Gettag()[]struct{
-	Count int
+func GetTitle() ts {
+	//select title from posts order by pid desc limit 5
+	// var title []string
+	// DB.Table("posts").Order("pid desc").Limit(5).Pluck("title", &title)
+	var res ts
+	DB.Table("posts").Order("pid desc").Limit(5).Scan(&res)
+
+	return res
+}
+
+//
+type ct []struct {
+	Count   int
 	Tagname string
-}{
+}
 
-	var result []struct{
-		Count int
-		Tagname string
-	}
-	DB.Table("tags").Select("count(pid) as count,type as tagname").Joins("LEFT JOIN posts ON tags.tid = posts.tagid").Group("tid").Scan(&result)
-
-	return result
+func GetTag() ct {
+	var res ct
+	DB.Table("tags").Select("count(pid) as count,type as tagname").Joins("LEFT JOIN posts ON tags.tid = posts.tagid").Group("tid").Scan(&res)
+	return res
 }

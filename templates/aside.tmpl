@@ -20,10 +20,10 @@
             </div>
             <div class="panel-body">
              
-                {{range $title :=.titles}}
+                {{range $res :=.titles}}
                 <li>
-                    <a href="/topic/item.slug }}">
-                        <p>{{ $title }}</p>
+                    <a href="/posts/{{ $res.Slug }}">
+                        <p>{{ $res.Title }}</p>
                     </a>
                 </li>
                 {{end}}
@@ -37,7 +37,7 @@
             </div>
             <div id="tag_a" class="panel-body list-group">
                 {{range $tag := .tags}}
-                <a href="/tag/{{$tag.Tagname}}"> {{$tag.Tagname}}  [ {{$tag.Count}} ]</a>
+                <a href="/tag/{{ $tag.Tagname }}"> {{$tag.Tagname}}  [ {{$tag.Count}} ]</a>
                 {{end}}
             </div>
         </div>

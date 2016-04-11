@@ -1,44 +1,48 @@
 package controllers
 
 import (
- 	. "ginsite/models"
- 	"github.com/gin-gonic/gin"
- 	"net/http"
-	"time"
-	"strconv"
+	"ginsite/component"
+	. "ginsite/models"
 	"ginsite/util"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"strconv"
+	"time"
 )
 
-
-func PostsGetHandler(c *gin.Context)  {
+func GetAllHandler(c *gin.Context) {
 
 	var posts []Post
 	DB.Select("title,slug,published").Order("pid desc").Find(&posts)
+	titles := component.GetTitle()
+	tags := component.GetTag()
 
-	c.HTML(http.StatusOK,"posts.html",gin.H{
-		"posts":posts,
+	c.HTML(http.StatusOK, "posts.html", gin.H{
+		"posts":  posts,
+		"titles": titles,
+		"tags":   tags,
 	})
 }
 
-func PostsPostHandler(c *gin.Context)  {
+func NewPostAndEditHandler(c *gin.Context) {
 	//  post: --> /post/   or  -->/post/*slug
 
 	Title := c.PostForm("title")
-	Content:=c.PostForm("content")
-	Published:=time.Now()
+	Content := c.PostForm("content")
+	Published := time.Now()
 	now := time.Now()
 
-	slug :=c.PostForm("slug")
+	slug := c.PostForm("slug")
 	//  /post/*slug  ---> slug start with "/"
 	var Slug string
 	if slug == "/" {
 		Slug = now.Format("2006/1/02/") + strconv.Itoa(now.Nanosecond())
-	}else {
+	} else {
 		Slug = string([]byte(slug)[1:])
 	}
 
-	uid, err :=util.GetSecureCookie(c.Request,"user")
-	if err!=nil {
+	uid, err := util.GetSecureCookie(c.Request, "user")
+	if err != nil {
 		c.Redirect(http.StatusNonAuthoritativeInfo, "/login")
 		return
 	}
@@ -46,55 +50,62 @@ func PostsPostHandler(c *gin.Context)  {
 	Useridstr, _ := strconv.Atoi(uid)
 	Userid := uint(Useridstr)
 
-	tag:=c.PostForm("tag")
+	tag := c.PostForm("tag")
 	var (
-		tags Tag
+		tags  Tag
 		Tagid uint = 0
 	)
 	if tag != "" {
-		DB.Where("type=?",tag).Find(&tags)
+		DB.Where("type=?", tag).Find(&tags)
 		Tagid = tags.Tid
 	}
 
-	post :=Post{
-		Title :Title,
-		Content:Content,
-		Published:Published,
-		Slug:Slug,
-		Userid:Userid,
-		Tagid:Tagid,
+	post := Post{
+		Title:     Title,
+		Content:   Content,
+		Published: Published,
+		Slug:      Slug,
+		Userid:    Userid,
+		Tagid:     Tagid,
 	}
 	if slug == "/" {
-	DB.Create(&post)
-	}else {
-		DB.Model(&post).Update("title", "content","slug","tagid")
+		DB.Create(&post)
+	} else {
+		DB.Model(&post).Update("title", "content", "slug", "tagid")
 	}
 
-	c.Redirect(http.StatusMovedPermanently,"/posts/" + Slug)
+	c.Redirect(http.StatusMovedPermanently, "/posts/"+Slug)
 }
 
-
-func PostDeleteHandler(c *gin.Context)  {
+func DeleteHandler(c *gin.Context) {
 	slug := c.Query("slug")
 	if slug != "" {
-		DB.Delete(&Post{}).Where("slug = ?",slug)
+		DB.Delete(&Post{}).Where("slug = ?", slug)
 		c.JSON(http.StatusOK, gin.H{
-			"slug":slug,
-			"status":"ok",
+			"slug":   slug,
+			"status": "ok",
 		})
 		return
 	}
 	c.JSON(http.StatusBadRequest, gin.H{
-		"slug":slug,
-		"status":"fail",
+		"slug":   slug,
+		"status": "fail",
 	})
 }
 
-func PostsGetOneHandler(c *gin.Context)  {
-	slug := c.Query("slug")
-	var post Post
-	DB.Where("slug = ?",slug).Find(&post)
-	c.HTML(http.StatusOK,"post.html",gin.H{
-		"post":post,
+func GetOneHandler(c *gin.Context) {
+	slug := c.Param("slug")
+	if slug == "" {
+		c.Redirect(http.StatusMovedPermanently, "/")
+	}
+	var posts []Post
+	DB.Where("slug = ?", slug).Find(&posts)
+	titles := component.GetTitle()
+	tags := component.GetTag()
+	c.HTML(http.StatusOK, "posts.html", gin.H{
+		"posts":  posts,
+		"titles": titles,
+		"tags":   tags,
 	})
+
 }
