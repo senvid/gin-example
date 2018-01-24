@@ -26,7 +26,7 @@ func PageHandler(c *gin.Context) {
 	} else {
 		sumpage = countrows/sp + 1
 	}
-	islogin, _ = c.Get("islogin")
+	islogin, _ := c.Get("islogin")
 	c.HTML(http.StatusOK, "home.tmpl", gin.H{
 		"home":    "welcome home",
 		"posts":   posts,

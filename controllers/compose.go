@@ -6,7 +6,7 @@ import (
 )
 
 func ComposeHandler(c *gin.Context) {
-	islogin, _ = c.Get("islogin")
+	islogin, _ := c.Get("islogin")
 	c.HTML(http.StatusOK, "compose.tmpl", gin.H{
 		"islogin": islogin,
 	})

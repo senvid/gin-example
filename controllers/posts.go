@@ -16,7 +16,7 @@ func GetAllHandler(c *gin.Context) {
 	DB.Select("title,slug,published").Order("pid desc").Find(&posts)
 	titles := component.GetTitle()
 	tags := component.GetTag()
-	islogin, _ = c.Get("islogin")
+	islogin, _ := c.Get("islogin")
 	c.HTML(http.StatusOK, "posts.html", gin.H{
 		"posts":   posts,
 		"titles":  titles,
@@ -103,7 +103,7 @@ func GetOneHandler(c *gin.Context) {
 	DB.Where("slug = ?", slug).Find(&posts)
 	titles := component.GetTitle()
 	tags := component.GetTag()
-	islogin, _ = c.Get("islogin")
+	islogin, _ := c.Get("islogin")
 	c.HTML(http.StatusOK, "posts.html", gin.H{
 		"posts":   posts,
 		"titles":  titles,
