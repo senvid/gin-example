@@ -1,0 +1,5 @@
+github.com/gin-gonic/gin
+github.com/go-sql-driver/mysql
+github.com/jinzhu/gorm
+github.com/mattn/go-isatty
+github.com/ugorji/go/codec

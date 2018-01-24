@@ -10,28 +10,26 @@ import (
 
 func islogin(c *gin.Context) bool {
 	// cookie.Name = "user"
-		// cookie.Value = "uid"
-		// ck type --- > string
-		ck, err := util.GetSecureCookie(c.Request, "user")
-		log.Print(ck)
+	// cookie.Value = "uid"
+	// ck type --- > string
+	ck, err := util.GetSecureCookie(c.Request, "user")
+	if err != nil || ck == "" {
+		log.Println("unauthorized...........")
+		return false
+	}
 
-		if err != nil || ck == "" {
-			log.Print(" no ck current...........")
-			return false
-		}
+	uid, e := strconv.Atoi(ck)
+	if e != nil {
+		return false
+	}
 
-		uid, e := strconv.Atoi(ck)
-		if e != nil {
-			return false
-		}
-
-		// select id from users where id = ?
-		var user models.User
-		models.DB.Where("uid = ?", uid).Find(&user)
-		if user.Uid != uint(uid) {
-			return false
-		}
-		return true
+	// select id from users where id = ?
+	var user models.User
+	models.DB.Where("uid = ?", uid).Find(&user)
+	if user.Uid != uint(uid) {
+		return false
+	}
+	return true
 }
 
 func Current() gin.HandlerFunc {
