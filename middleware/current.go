@@ -35,8 +35,7 @@ func islogin(c *gin.Context) bool {
 func Current() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		c.Set("current", islogin(c))
-
+		c.Set("islogin", islogin(c))
 		c.Next()
 	}
 }

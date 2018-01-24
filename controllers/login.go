@@ -31,7 +31,13 @@ func LoginHandler(c *gin.Context) {
 	//	c.HTML(http.StatusOK,"login.html",gin.H{})
 	//	return
 	//}
+	islogin, _ := c.Get("islogin")
+	if islogin == true {
+		c.Redirect(302, "/")
+		return
+	}
 	_ = SetXsrf(c)
+
 	c.HTML(http.StatusOK, "login.html", gin.H{})
 
 }

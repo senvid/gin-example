@@ -34,13 +34,14 @@ func HomeHandler(c *gin.Context) {
 	//title and tag
 	titles := component.GetTitle()
 	tags := component.GetTag()
+	islogin, _ = c.Get("islogin")
 	c.HTML(http.StatusOK, "home.tmpl", gin.H{
 		"home":    "welcome home",
 		"posts":   posts,
 		"sumpage": sumpage,
 		"onpage":  1,
-		"current": c.MustGet("current").(bool),
 		"titles":  titles,
 		"tags":    tags,
+		"islogin": islogin,
 	})
 }

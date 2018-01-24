@@ -1,15 +1,13 @@
 package controllers
 
- import (
- 	"github.com/gin-gonic/gin"
- 	"net/http"
- )
-
-
-
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
 
 func AboutHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "about.html", gin.H{})
+	islogin, _ := c.Get("islogin")
+	c.HTML(http.StatusOK, "about.html", gin.H{
+		"islogin": islogin,
+	})
 }
-
-
