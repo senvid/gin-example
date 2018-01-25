@@ -1,12 +1,10 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	// "github.com/gin-gonic/gin/binding"
 	"ginsite/controllers"
 	"ginsite/middleware"
 	"ginsite/models"
-	// "log"
+	"github.com/gin-gonic/gin"
 	"runtime"
 )
 
